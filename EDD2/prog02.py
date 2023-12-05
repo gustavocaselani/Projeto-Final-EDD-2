@@ -1,5 +1,4 @@
 class Node:
-    
     def __init__(self, value):
         self.value = value
         self.left = None
@@ -7,13 +6,10 @@ class Node:
 
 
 def get_priority(op):
-    
     if op in ('+', '-'):
         return 1
-    
     elif op in ('*', '/'):
         return 2
-    
     return 0
 
 
@@ -24,29 +20,22 @@ def build_expression(expression):
     elements = expression.split()
 
     for element in elements:
-        
         if element.isdigit() or (len(element) > 1 and element[0] == '-' and element[1:].isdigit()):
             stack_nodes.append(Node(element))
-       
         elif element == "(":
             operators.append('(')
-        
         elif element == ")":
-            
             while operators and operators[-1] != '(':
-                right = stack_nodes.pop() if stack_nodes else None
-                left = stack_nodes.pop() if stack_nodes else None
+                right = stack_nodes.pop()
+                left = stack_nodes.pop()
 
                 operator = Node(operators.pop())
                 operator.left = left
                 operator.right = right
 
                 stack_nodes.append(operator)
-            
-            if operators and operators[-1] == '(':
-                operators.pop()  
+            operators.pop()  # Remove o '('
         else:
-           
             while operators and get_priority(operators[-1]) >= get_priority(element[0]):
                 right = stack_nodes.pop() if stack_nodes else None
                 left = stack_nodes.pop() if stack_nodes else None
@@ -75,7 +64,7 @@ def calculate_result(root):
     if not root:
         return 0
 
-    if root.value.isdigit():
+    if root.value.isdigit() or (len(root.value) > 1 and root.value[0] == '-' and root.value[1:].isdigit()):
         return float(root.value)
 
     left = calculate_result(root.left)
@@ -83,23 +72,18 @@ def calculate_result(root):
 
     if root.value == "+":
         return left + right
-    
     elif root.value == "-":
         return left - right
-    
     elif root.value == "*":
         return left * right
-    
     elif root.value == "/":
-        
         if right != 0:
             return left / right
-       
         else:
-            print("Erro: Divisao por zero.")
+            print("Erro: Divisão por zero.")
             return 0
 
-    print("Erro: Operador invalido.")
+    print("Erro: Operador inválido.")
     return 0
 
 
