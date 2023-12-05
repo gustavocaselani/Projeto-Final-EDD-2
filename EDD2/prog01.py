@@ -96,7 +96,3 @@ def evaluation(input_expr):
         else:
             raiz = build_expression(test)
             print(calculate_result(raiz))
-
-evaluation("x = 3 + 4 * (2 - 1)")
-evaluation("y = x + 2")
-evaluation("y")
