@@ -94,13 +94,4 @@ def tree_in_order(root):
     tree_in_order(root.left)
     print(root.value, end=' ')
     tree_in_order(root.right)
-
-
-# Exemplo de uso:
-expression = "3 + 4 * (2 - 1)"
-root = build_expression(expression)
-result = calculate_result(root)
-
-print("Resultado:", result)
-print("Árvore em ordem:")
-tree_in_order(root)
+    
